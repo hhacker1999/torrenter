@@ -44,7 +44,7 @@ class MovieEntity {
   final String titleLong;
   final String slug;
   final int year;
-  final int rating;
+  final double rating;
   final int runtime;
   final List<String> genres;
   final String summary;
@@ -72,7 +72,7 @@ class MovieEntity {
         titleLong: json["title_long"],
         slug: json["slug"],
         year: json["year"],
-        rating: json["rating"],
+        rating: json["rating"].toDouble(),
         runtime: json["runtime"],
         genres: List<String>.from(json["genres"].map((x) => x)),
         summary: json["summary"],
