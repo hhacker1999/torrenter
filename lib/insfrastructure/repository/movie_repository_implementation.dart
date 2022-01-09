@@ -18,7 +18,7 @@ class MovieRepositoryImplementation implements MoviesRepository {
       if (res.statusCode == 200) {
         page++;
         final Map data = jsonDecode(res.body);
-        final List movies = data["movies"];
+        final List movies = data["data"]["movies"];
         final List<MovieEntity> movieEntities =
             movies.map((a) => MovieEntity.fromJson(a)).toList();
         return movieEntities;
