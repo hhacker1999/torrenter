@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torrenter/app/dependencies.dart';
 import 'package:torrenter/presentation/home_view/home_view.dart';
-import 'presentation/home_view/view_model/home_view_model.dart';
+import 'package:torrenter/presentation/home_view/view_model/home_view_event.dart';
+
+import 'presentation/home_view/view_model/home_view_bloc.dart';
 
 void main() {
   runApp(const Torrenter());
@@ -27,12 +29,12 @@ class _TorrenterState extends State<Torrenter> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Torrenter",
-      home: Provider<HomeViewModel>(
-          create: (_) => HomeViewModel(
-                getMoviesUsecase: _dependencies.getMoviesUsecase,
-              ),
-          dispose: (_, model) => model.dispose(),
-          child: const HomeView()),
+      home: BlocProvider<HomeViewBloc>(
+        create: (_) => HomeViewBloc(
+          getMoviesUsecase: _dependencies.getMoviesUsecase,
+        )..add(const HomeViewEvent.loadPages()),
+        child: const HomeView(),
+      ),
     );
   }
 }

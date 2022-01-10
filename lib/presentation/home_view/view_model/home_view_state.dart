@@ -1,19 +1,13 @@
 import 'package:torrenter/domain/entity/movie_entity.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
+part 'home_view_state.freezed.dart';
 
-abstract class HomeViewState {
-  const HomeViewState();
+
+@freezed
+abstract class HomeViewState with _$HomeViewState {
+  const factory HomeViewState.loading() = Loading;
+  const factory HomeViewState.error(String error) = Error;
+  const factory HomeViewState.loaded(List<MovieEntity> movies) = Loaded;
 }
 
-class HomeViewStateLoading extends HomeViewState {
-  const HomeViewStateLoading();
-}
-
-class HomeViewStateLoaded extends HomeViewState {
-  final List<MovieEntity> movies;
-  const HomeViewStateLoaded({required this.movies});
-}
-
-class HomeViewStateError extends HomeViewState {
-  final String error;
-  const HomeViewStateError({required this.error});
-}
