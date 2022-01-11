@@ -59,7 +59,7 @@ class MovieEntity {
   final String mediumCoverImage;
   final String largeCoverImage;
   final String state;
-  final List<Torrent> torrents;
+  final List<TorrentEntity> torrents;
   final DateTime dateUploaded;
   final int dateUploadedUnix;
 
@@ -87,8 +87,8 @@ class MovieEntity {
         mediumCoverImage: json["medium_cover_image"],
         largeCoverImage: json["large_cover_image"],
         state: json["state"],
-        torrents: List<Torrent>.from(
-            json["torrents"].map((x) => Torrent.fromJson(x))),
+        torrents: List<TorrentEntity>.from(
+            json["torrents"].map((x) => TorrentEntity.fromJson(x))),
         dateUploaded: DateTime.parse(json["date_uploaded"]),
         dateUploadedUnix: json["date_uploaded_unix"],
       );

@@ -1,5 +1,5 @@
-class Torrent {
-  Torrent({
+class TorrentEntity {
+  TorrentEntity({
     required this.url,
     required this.hash,
     required this.quality,
@@ -23,7 +23,7 @@ class Torrent {
   final DateTime dateUploaded;
   final int dateUploadedUnix;
 
-  factory Torrent.fromJson(Map<String, dynamic> json) => Torrent(
+  factory TorrentEntity.fromJson(Map<String, dynamic> json) => TorrentEntity(
         url: json["url"],
         hash: json["hash"],
         quality: json["quality"],

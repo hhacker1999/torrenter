@@ -12,7 +12,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF070D2D),
+      backgroundColor: AppConstants.purple,
       body: SafeArea(
         child: BlocBuilder<HomeViewBloc, HomeViewState>(
           builder: (_, HomeViewState state) {
@@ -83,10 +83,17 @@ class HomeView extends StatelessWidget {
                                 mainAxisSpacing: 10,
                                 crossAxisSpacing: 10),
                         itemCount: data.length,
-                        itemBuilder: (_, index) => MovieItem(
-                          title: data[index].title,
-                          image: data[index].mediumCoverImage,
-                          rating: data[index].rating,
+                        itemBuilder: (_, index) => GestureDetector(
+                          onTap: () => Navigator.pushNamed(
+                            context,
+                            AppConstants.movieRoute,
+                            arguments: data[index],
+                          ),
+                          child: MovieItem(
+                            title: data[index].title,
+                            image: data[index].mediumCoverImage,
+                            rating: data[index].rating,
+                          ),
                         ),
                       ),
                     ),
