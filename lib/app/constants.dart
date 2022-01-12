@@ -3,10 +3,16 @@ import 'package:flutter/material.dart';
 class AppConstants {
   static const String homeRoute = "/";
   static const String movieRoute = "/movie";
-  static const String _ytsApi = "https://yts.mx/api/v2/list_movies.json?sort_by=year&limit=40&";
+  static const String _ytsApi =
+      "https://yts.mx/api/v2/list_movies.json?sort_by=year&limit=40&";
   static String ytsApiPage(int page) {
     final String stringPage = page.toString();
     final String url = _ytsApi + "page=" + stringPage;
+    return url;
+  }
+
+  static String ytsApiSearch(String name) {
+    final String url = _ytsApi + "query_term=" + name;
     return url;
   }
 

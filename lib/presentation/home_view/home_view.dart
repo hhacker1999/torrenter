@@ -1,13 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:torrenter/app/constants.dart';
+import 'package:torrenter/presentation/home_view/view_model/home_view_event.dart';
 import 'package:torrenter/presentation/home_view/view_model/home_view_state.dart';
 
 import 'helper/movie_item.dart';
 import 'view_model/home_view_bloc.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  late TextEditingController _movieController;
+  @override
+  void initState() {
+    super.initState();
+    _movieController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _movieController.clear();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +36,20 @@ class HomeView extends StatelessWidget {
         child: BlocBuilder<HomeViewBloc, HomeViewState>(
           builder: (_, HomeViewState state) {
             return state.when(
+              movieLoading: () => const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: 2,
+                ),
+              ),
               loading: () => const Center(
                 child: CircularProgressIndicator(
+                  strokeWidth: 2,
                   color: Colors.white,
                 ),
               ),
               error: (s) => Center(
-                child: Text(s),
+                child: Text(s, style: TextStyle(color: Colors.white)),
               ),
               loaded: (data) => Padding(
                 padding:
@@ -42,6 +68,20 @@ class HomeView extends StatelessWidget {
                       height: 30,
                     ),
                     TextField(
+                      onChanged: (s) {
+                        if (s.isEmpty) {
+                          BlocProvider.of<HomeViewBloc>(context)
+                              .add(HomeViewEvent.searchMovie(s));
+                        }
+                      },
+                      onSubmitted: (s) {
+                        FocusScope.of(context).unfocus();
+                        BlocProvider.of<HomeViewBloc>(context)
+                            .add(HomeViewEvent.searchMovie(s));
+                      },
+                      controller: _movieController,
+                      keyboardType: TextInputType.text,
+                      style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         hintText: "Search movie",
                         hintStyle: TextStyle(color: AppConstants.whiteGrey),

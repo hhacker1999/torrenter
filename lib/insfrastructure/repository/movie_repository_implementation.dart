@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:torrenter/app/constants.dart';
 import 'package:torrenter/domain/entity/movie_entity.dart';
 import 'package:torrenter/domain/repository/movies_repository.dart';
@@ -22,6 +21,29 @@ class MovieRepositoryImplementation implements MoviesRepository {
         final List<MovieEntity> movieEntities =
             movies.map((a) => MovieEntity.fromJson(a)).toList();
         return movieEntities;
+      } else {
+        throw "Bad connection";
+      }
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<MovieEntity>> searchMovie(String name) async {
+    try {
+      final uri = AppConstants.ytsApiSearch(name);
+      final res = await _client.get(Uri.parse(uri));
+      if (res.statusCode == 200) {
+        final Map data = jsonDecode(res.body);
+        if (data["data"]["movie_count"] != 0) {
+          final List movies = data["data"]["movies"];
+          final List<MovieEntity> movieEntities =
+              movies.map((a) => MovieEntity.fromJson(a)).toList();
+          return movieEntities;
+        } else {
+          return [];
+        }
       } else {
         throw "Bad connection";
       }

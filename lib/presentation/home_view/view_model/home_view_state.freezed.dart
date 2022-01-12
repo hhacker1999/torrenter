@@ -22,6 +22,10 @@ class _$HomeViewStateTearOff {
     return const Loading();
   }
 
+  MovieLoading movieLoading() {
+    return const MovieLoading();
+  }
+
   Error error(String error) {
     return Error(
       error,
@@ -43,6 +47,7 @@ mixin _$HomeViewState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
+    required TResult Function() movieLoading,
     required TResult Function(String error) error,
     required TResult Function(List<MovieEntity> movies) loaded,
   }) =>
@@ -50,6 +55,7 @@ mixin _$HomeViewState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
+    TResult Function()? movieLoading,
     TResult Function(String error)? error,
     TResult Function(List<MovieEntity> movies)? loaded,
   }) =>
@@ -57,6 +63,7 @@ mixin _$HomeViewState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
+    TResult Function()? movieLoading,
     TResult Function(String error)? error,
     TResult Function(List<MovieEntity> movies)? loaded,
     required TResult orElse(),
@@ -65,6 +72,7 @@ mixin _$HomeViewState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Loading value) loading,
+    required TResult Function(MovieLoading value) movieLoading,
     required TResult Function(Error value) error,
     required TResult Function(Loaded value) loaded,
   }) =>
@@ -72,6 +80,7 @@ mixin _$HomeViewState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Loading value)? loading,
+    TResult Function(MovieLoading value)? movieLoading,
     TResult Function(Error value)? error,
     TResult Function(Loaded value)? loaded,
   }) =>
@@ -79,6 +88,7 @@ mixin _$HomeViewState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Loading value)? loading,
+    TResult Function(MovieLoading value)? movieLoading,
     TResult Function(Error value)? error,
     TResult Function(Loaded value)? loaded,
     required TResult orElse(),
@@ -148,6 +158,7 @@ class _$Loading with DiagnosticableTreeMixin implements Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
+    required TResult Function() movieLoading,
     required TResult Function(String error) error,
     required TResult Function(List<MovieEntity> movies) loaded,
   }) {
@@ -158,6 +169,7 @@ class _$Loading with DiagnosticableTreeMixin implements Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
+    TResult Function()? movieLoading,
     TResult Function(String error)? error,
     TResult Function(List<MovieEntity> movies)? loaded,
   }) {
@@ -168,6 +180,7 @@ class _$Loading with DiagnosticableTreeMixin implements Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
+    TResult Function()? movieLoading,
     TResult Function(String error)? error,
     TResult Function(List<MovieEntity> movies)? loaded,
     required TResult orElse(),
@@ -182,6 +195,7 @@ class _$Loading with DiagnosticableTreeMixin implements Loading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Loading value) loading,
+    required TResult Function(MovieLoading value) movieLoading,
     required TResult Function(Error value) error,
     required TResult Function(Loaded value) loaded,
   }) {
@@ -192,6 +206,7 @@ class _$Loading with DiagnosticableTreeMixin implements Loading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Loading value)? loading,
+    TResult Function(MovieLoading value)? movieLoading,
     TResult Function(Error value)? error,
     TResult Function(Loaded value)? loaded,
   }) {
@@ -202,6 +217,7 @@ class _$Loading with DiagnosticableTreeMixin implements Loading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Loading value)? loading,
+    TResult Function(MovieLoading value)? movieLoading,
     TResult Function(Error value)? error,
     TResult Function(Loaded value)? loaded,
     required TResult orElse(),
@@ -215,6 +231,128 @@ class _$Loading with DiagnosticableTreeMixin implements Loading {
 
 abstract class Loading implements HomeViewState {
   const factory Loading() = _$Loading;
+}
+
+/// @nodoc
+abstract class $MovieLoadingCopyWith<$Res> {
+  factory $MovieLoadingCopyWith(
+          MovieLoading value, $Res Function(MovieLoading) then) =
+      _$MovieLoadingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$MovieLoadingCopyWithImpl<$Res> extends _$HomeViewStateCopyWithImpl<$Res>
+    implements $MovieLoadingCopyWith<$Res> {
+  _$MovieLoadingCopyWithImpl(
+      MovieLoading _value, $Res Function(MovieLoading) _then)
+      : super(_value, (v) => _then(v as MovieLoading));
+
+  @override
+  MovieLoading get _value => super._value as MovieLoading;
+}
+
+/// @nodoc
+
+class _$MovieLoading with DiagnosticableTreeMixin implements MovieLoading {
+  const _$MovieLoading();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'HomeViewState.movieLoading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('type', 'HomeViewState.movieLoading'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is MovieLoading);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function() movieLoading,
+    required TResult Function(String error) error,
+    required TResult Function(List<MovieEntity> movies) loaded,
+  }) {
+    return movieLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function()? movieLoading,
+    TResult Function(String error)? error,
+    TResult Function(List<MovieEntity> movies)? loaded,
+  }) {
+    return movieLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function()? movieLoading,
+    TResult Function(String error)? error,
+    TResult Function(List<MovieEntity> movies)? loaded,
+    required TResult orElse(),
+  }) {
+    if (movieLoading != null) {
+      return movieLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Loading value) loading,
+    required TResult Function(MovieLoading value) movieLoading,
+    required TResult Function(Error value) error,
+    required TResult Function(Loaded value) loaded,
+  }) {
+    return movieLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Loading value)? loading,
+    TResult Function(MovieLoading value)? movieLoading,
+    TResult Function(Error value)? error,
+    TResult Function(Loaded value)? loaded,
+  }) {
+    return movieLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Loading value)? loading,
+    TResult Function(MovieLoading value)? movieLoading,
+    TResult Function(Error value)? error,
+    TResult Function(Loaded value)? loaded,
+    required TResult orElse(),
+  }) {
+    if (movieLoading != null) {
+      return movieLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class MovieLoading implements HomeViewState {
+  const factory MovieLoading() = _$MovieLoading;
 }
 
 /// @nodoc
@@ -288,6 +426,7 @@ class _$Error with DiagnosticableTreeMixin implements Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
+    required TResult Function() movieLoading,
     required TResult Function(String error) error,
     required TResult Function(List<MovieEntity> movies) loaded,
   }) {
@@ -298,6 +437,7 @@ class _$Error with DiagnosticableTreeMixin implements Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
+    TResult Function()? movieLoading,
     TResult Function(String error)? error,
     TResult Function(List<MovieEntity> movies)? loaded,
   }) {
@@ -308,6 +448,7 @@ class _$Error with DiagnosticableTreeMixin implements Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
+    TResult Function()? movieLoading,
     TResult Function(String error)? error,
     TResult Function(List<MovieEntity> movies)? loaded,
     required TResult orElse(),
@@ -322,6 +463,7 @@ class _$Error with DiagnosticableTreeMixin implements Error {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Loading value) loading,
+    required TResult Function(MovieLoading value) movieLoading,
     required TResult Function(Error value) error,
     required TResult Function(Loaded value) loaded,
   }) {
@@ -332,6 +474,7 @@ class _$Error with DiagnosticableTreeMixin implements Error {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Loading value)? loading,
+    TResult Function(MovieLoading value)? movieLoading,
     TResult Function(Error value)? error,
     TResult Function(Loaded value)? loaded,
   }) {
@@ -342,6 +485,7 @@ class _$Error with DiagnosticableTreeMixin implements Error {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Loading value)? loading,
+    TResult Function(MovieLoading value)? movieLoading,
     TResult Function(Error value)? error,
     TResult Function(Loaded value)? loaded,
     required TResult orElse(),
@@ -432,6 +576,7 @@ class _$Loaded with DiagnosticableTreeMixin implements Loaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
+    required TResult Function() movieLoading,
     required TResult Function(String error) error,
     required TResult Function(List<MovieEntity> movies) loaded,
   }) {
@@ -442,6 +587,7 @@ class _$Loaded with DiagnosticableTreeMixin implements Loaded {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? loading,
+    TResult Function()? movieLoading,
     TResult Function(String error)? error,
     TResult Function(List<MovieEntity> movies)? loaded,
   }) {
@@ -452,6 +598,7 @@ class _$Loaded with DiagnosticableTreeMixin implements Loaded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
+    TResult Function()? movieLoading,
     TResult Function(String error)? error,
     TResult Function(List<MovieEntity> movies)? loaded,
     required TResult orElse(),
@@ -466,6 +613,7 @@ class _$Loaded with DiagnosticableTreeMixin implements Loaded {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Loading value) loading,
+    required TResult Function(MovieLoading value) movieLoading,
     required TResult Function(Error value) error,
     required TResult Function(Loaded value) loaded,
   }) {
@@ -476,6 +624,7 @@ class _$Loaded with DiagnosticableTreeMixin implements Loaded {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Loading value)? loading,
+    TResult Function(MovieLoading value)? movieLoading,
     TResult Function(Error value)? error,
     TResult Function(Loaded value)? loaded,
   }) {
@@ -486,6 +635,7 @@ class _$Loaded with DiagnosticableTreeMixin implements Loaded {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Loading value)? loading,
+    TResult Function(MovieLoading value)? movieLoading,
     TResult Function(Error value)? error,
     TResult Function(Loaded value)? loaded,
     required TResult orElse(),

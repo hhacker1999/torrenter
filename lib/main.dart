@@ -42,6 +42,7 @@ class _TorrenterState extends State<Torrenter> {
                   return BlocProvider<HomeViewBloc>(
                     create: (_) => HomeViewBloc(
                       getMoviesUsecase: _dependencies.getMoviesUsecase,
+                      searchMovieUseCase: _dependencies.searchMovieUseCase,
                     )..add(const HomeViewEvent.loadPages()),
                     child: const HomeView(),
                   );
