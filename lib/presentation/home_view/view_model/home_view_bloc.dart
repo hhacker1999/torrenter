@@ -6,7 +6,7 @@ import 'package:torrenter/presentation/home_view/view_model/home_view_state.dart
 import 'home_view_event.dart';
 
 class HomeViewBloc extends Bloc<HomeViewEvent, HomeViewState> {
-  late List<MovieEntity> _movieList;
+  final List<MovieEntity> _movieList = List.empty(growable: true);
   final GetMoviesUsecase getMoviesUsecase;
   final SearchMovieUseCase searchMovieUseCase;
 
@@ -20,8 +20,8 @@ class HomeViewBloc extends Bloc<HomeViewEvent, HomeViewState> {
   Future<void> _fetchMovies(void Function(HomeViewState) emit) async {
     try {
       final List<MovieEntity> movies = await getMoviesUsecase.execute();
-      _movieList = movies;
-      emit(HomeViewState.loaded(movies));
+      _movieList.addAll(movies);
+      emit(HomeViewState.loaded(_movieList));
     } catch (e) {
       emit(HomeViewState.error(e.toString()));
     }
@@ -33,7 +33,6 @@ class HomeViewBloc extends Bloc<HomeViewEvent, HomeViewState> {
       if (name.isEmpty) {
         emit(HomeViewState.loaded(_movieList));
       } else {
-        emit(const HomeViewState.movieLoading());
         final List<MovieEntity> movies = await searchMovieUseCase.execute(name);
         emit(HomeViewState.loaded(movies));
       }

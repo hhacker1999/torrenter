@@ -16,16 +16,38 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   late TextEditingController _movieController;
+  late ScrollController _scrollController;
+  int localPage = 1;
+  late int blocPage;
   @override
   void initState() {
     super.initState();
     _movieController = TextEditingController();
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      _checkForScrollPosition();
+    });
   }
 
   @override
   void dispose() {
     _movieController.clear();
+    _scrollController.dispose();
     super.dispose();
+  }
+
+  void _checkForScrollPosition() {
+    if (localPage == blocPage) {
+      var pos = _scrollController.position;
+      var finalPos = pos.maxScrollExtent;
+      var currentpos = pos.pixels;
+      double percent = (currentpos / finalPos) * 100;
+      if (percent >= 80.0) {
+        localPage++;
+        BlocProvider.of<HomeViewBloc>(context)
+            .add(const HomeViewEvent.loadPages());
+      }
+    }
   }
 
   @override
@@ -35,23 +57,13 @@ class _HomeViewState extends State<HomeView> {
       body: SafeArea(
         child: BlocBuilder<HomeViewBloc, HomeViewState>(
           builder: (_, HomeViewState state) {
-            return state.when(
-              movieLoading: () => const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                  strokeWidth: 2,
-                ),
-              ),
-              loading: () => const Center(
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  color: Colors.white,
-                ),
-              ),
-              error: (s) => Center(
-                child: Text(s, style: TextStyle(color: Colors.white)),
-              ),
-              loaded: (data) => Padding(
+            if (state is HomeStateError) {
+              return Center(
+                  child: Text(state.error,
+                      style: const TextStyle(color: Colors.white)));
+            } else if (state is HomeStateLoaded) {
+              blocPage = state.movies.length ~/ 40;
+              return Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 2, horizontal: 15),
                 child: Column(
@@ -115,6 +127,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                     Expanded(
                       child: GridView.builder(
+                        controller: _scrollController,
                         physics: const BouncingScrollPhysics(),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
@@ -122,25 +135,34 @@ class _HomeViewState extends State<HomeView> {
                                 childAspectRatio: 3 / 4,
                                 mainAxisSpacing: 10,
                                 crossAxisSpacing: 10),
-                        itemCount: data.length,
-                        itemBuilder: (_, index) => GestureDetector(
-                          onTap: () => Navigator.pushNamed(
-                            context,
-                            AppConstants.movieRoute,
-                            arguments: data[index],
-                          ),
-                          child: MovieItem(
-                            title: data[index].title,
-                            image: data[index].mediumCoverImage,
-                            rating: data[index].rating,
-                          ),
-                        ),
+                        itemCount: state.movies.length,
+                        itemBuilder: (_, index) {
+                          return GestureDetector(
+                            onTap: () => Navigator.pushNamed(
+                              context,
+                              AppConstants.movieRoute,
+                              arguments: state.movies[index],
+                            ),
+                            child: MovieItem(
+                              title: state.movies[index].title,
+                              image: state.movies[index].mediumCoverImage,
+                              rating: state.movies[index].rating,
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ],
                 ),
-              ),
-            );
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: Colors.white,
+                ),
+              );
+            }
           },
         ),
       ),
